@@ -64,7 +64,7 @@ export const userController = {
         try {
             const { id } = req.params;
 
-            const checkStudentExist = await prisma.student.findUnique({ where: { id: Number(id) } });
+            const checkStudentExist = await prisma.student.findFirst({ where: { id: Number(id) } });
             if (!checkStudentExist) {
                 return res.status(404).json({ success: false, message: "User not found" });
             }
@@ -72,6 +72,8 @@ export const userController = {
             await prisma.student.delete({ where: { id: Number(id) } });
             res.status(200).json({ success: true, message: "User deleted successfully" });
         } catch (error) {
+            console.log('error', error);
+            
             res.status(500).json({ success: false, message: "Error in delete user account" });
         }
     },
