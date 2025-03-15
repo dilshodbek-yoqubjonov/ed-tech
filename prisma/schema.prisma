@@ -24,7 +24,7 @@ model Course {
   createdAt   DateTime         @default(now())
   RatingCount Int              @default(0)
   Rating      Rating[]
-  teachers    CourseTeachers[] 
+  teachers    CourseTeachers[]
 }
 
 model Teachers {
@@ -49,8 +49,8 @@ model Rating {
   userId   Int
   courseId Int
 
-  user   Student @relation(fields: [userId], references: [id])
-  course Course  @relation(fields: [courseId], references: [id])
+  user   Student @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }
 
 model CourseVideos {
@@ -58,7 +58,7 @@ model CourseVideos {
   videoUrl  String
   videoName String
   courseId  Int
-  course    Course   @relation(fields: [courseId], references: [id])
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 }
 
