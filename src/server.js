@@ -1,5 +1,6 @@
 import express from "express";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 // imported routes
 import { courseRouter } from "./routes/course.router.js";
@@ -14,6 +15,7 @@ import { setupSwagger } from "./config/swagger.config.js";
 
 // server
 const app = express();
+app.use(cors())
 const PORT = process.env.PORT || 3000;
 
 // middlewares
