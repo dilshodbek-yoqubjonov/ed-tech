@@ -10,6 +10,7 @@ import { videoRouter } from "./routes/video.router.js";
 import { analyseRouter } from "./routes/analytics.router.js";
 import { teacherRouter } from "./routes/teacher.router.js";
 import { AiRouter } from "./routes/ai.router.js";
+import { setupSwagger } from "./config/swagger.config.js";
 
 // server
 const app = express();
@@ -29,6 +30,6 @@ app.use("/", analyseRouter)
 app.use("/teacher", teacherRouter)
 app.use("/ai", AiRouter)
 
-
+setupSwagger(app);
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
