@@ -70,7 +70,10 @@ export const teacherController = {
     deleteTeacher: async (req, res) => {
         try {
             const { id } = req.params;
-
+            const checkTeacherExist = await prisma.teachers.findUnique({ where: { id: Number(id) } });
+            if (!checkTeacherExist) {
+                return res.status(404).json({ success: false, message: "Teacher not found" });
+            }
             await prisma.teachers.delete({ where: { id: Number(id) } });
             res.status(200).json({ success: true, message: "Teacher deleted successfully" });
         } catch (error) {
