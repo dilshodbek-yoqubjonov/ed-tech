@@ -1,5 +1,8 @@
 import jwt from "jsonwebtoken"
-const SECRET_KEY = process.env("JWT_SECRET_KEY")
+import dotenv from "dotenv"
+dotenv.config()
+
+const SECRET_KEY = process.env.JWT_SECRET_KEY
 
 
 const sign = (payload) => {
