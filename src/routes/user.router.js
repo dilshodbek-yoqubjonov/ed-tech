@@ -7,7 +7,7 @@ export const userRouter = Router();
 
 
 userRouter
-    .get("/", checkToken, userController.getAllUsers)
+    .get("/", userController.getAllUsers)
     .get("/:id", userController.getUserById)
     .post("/", userController.createUser)
     .put("/:id", userController.updateUser)
@@ -15,4 +15,4 @@ userRouter
 
 
 
-    .post("/rate", checkToken, rateCourse.rateCourseByUsers);
+    .post("/rate", rateCourse.rateCourseByUsers);
