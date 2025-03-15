@@ -9,25 +9,67 @@ datasource db {
 
 model Manager {
   id       Int    @id @default(autoincrement())
-  login    String
+  login    String @unique
   password String
 }
 
 model Course {
-  id          Int          @id @default(autoincrement())
+  id          Int              @id @default(autoincrement())
   title       String
   description String
   price       Float
+  avgRating   Float?           @default(5.00)
   students    Enrollment[]
-  createdAt   DateTime     @default(now())
+  videos      CourseVideos[]
+  createdAt   DateTime         @default(now())
+  RatingCount Int              @default(0)
+  Rating      Rating[]
+  teachers    CourseTeachers[] 
+}
+
+model Teachers {
+  id       Int              @id @default(autoincrement())
+  fullName String
+  courses  CourseTeachers[]
+}
+
+model CourseTeachers {
+  courseId  Int
+  teacherId Int
+
+  course  Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  teacher Teachers @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+
+  @@id([courseId, teacherId])
+}
+
+model Rating {
+  id       Int   @id @default(autoincrement())
+  score    Float
+  userId   Int
+  courseId Int
+
+  user   Student @relation(fields: [userId], references: [id])
+  course Course  @relation(fields: [courseId], references: [id])
+}
+
+model CourseVideos {
+  id        Int      @id @default(autoincrement())
+  videoUrl  String
+  videoName String
+  courseId  Int
+  course    Course   @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 model Student {
   id        Int          @id @default(autoincrement())
   name      String
   email     String       @unique
+  password  String
   enrolled  Enrollment[]
   createdAt DateTime     @default(now())
+  Rating    Rating[]
 }
 
 model Enrollment {
