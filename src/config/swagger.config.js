@@ -22,8 +22,8 @@ const swaggerDefinition = {
     },
     servers: [
         {
-            url: "http://localhost:5000",
-            description: "Local server",
+            url: " http://38.242.195.171:5000",
+            description: "VPS server",
         },
     ],
 
@@ -49,5 +49,5 @@ const swaggerSpec = swaggerJSDoc(options);
 
 export const setupSwagger = (app) => {
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-    console.log("Swagger Docs: http://localhost:5000/api-docs");
+    console.log("Swagger Docs:  http://38.242.195.171:5000/api-docs");
 };
